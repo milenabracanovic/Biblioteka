@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<main>
+    @if (Request.IsAuthenticated)
+    {
+        
+        <section class="row" aria-labelledby="aspnetTitle">
+
+            <h1 id="title">Kontrolni panel</h1>
+            
+
+            <div class="row mt-4">
+
+                <!-- Prva kartica -->
+
+                <div class=" col-md-6 mt-1">
+                    <div class="card bg-dark text-white h-100">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-3">
+
+                                    <span style="font-size: 58px;">📚</span>
+                                </div>
+                                <div class="col-9 text-end">
+                                    <div class="display-4">
+                                        <span>@ViewBag.BrojNajnovijihIzdanja</span>
+                                    </div>
+                                    <div>Najnovija izdanja!</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="/IzdanjeKnjige/ListaIzdanja" class="text-white">
+                            <div class="card-footer bg-white">
+                                <div class="d-flex justify-content-between align-items-center text-dark text-decoration-none">
+                                    <span>Detaljnije...</span>
+                                    <span> → </span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+
+
+                <!-- Druga kartica -->
+                <div class="col-md-6 mt-1">
+                    <div class="card bg-dark text-white h-100">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-3">
+
+                                    <span style="font-size: 58px;">⚠️</span>
+                                </div>
+                                <div class="col-9 text-end">
+                                    <div class="display-4">
+                                        <span>@ViewBag.BrojPrekoracenja</span>
+                                    </div>
+                                    <div>Prekoračenja!</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#" class="text-white">
+                            <div class="card-footer bg-white">
+                                <div class="d-flex justify-content-between align-items-center text-dark text-decoration-none">
+                                    <span>Detaljnije...</span>
+                                    <span> → </span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    }
+    else
+    {
+       
+        <section class="row" aria-labelledby="welcomeTitle">
+            <h1 id="welcomeTitle">Dobrodošli!</h1>
+            <p class="lead">Da biste videli više, molimo vas da se prijavite.</p>
+            <p><a href="@Url.Action("Login", "Account")" class="btn btn-dark btn-md">Prijavite se &raquo;</a></p>
+        </section>
+    }
+</main>
+
+
+
+
+
+

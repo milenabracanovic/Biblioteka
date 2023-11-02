@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BibliotekaModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Pozajmice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BibliotekarId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClanId" Type="int" Nullable="false" />
+          <Property Name="PrimjerakKnjigeId" Type="int" Nullable="false" />
+          <Property Name="DatumPozajmice" Type="date" Nullable="false" />
+          <Property Name="DatumZakazanogVracanja" Type="date" Nullable="false" />
+          <Property Name="DatumVracanja" Type="date" />
+        </EntityType>
+        <EntityContainer Name="BibliotekaModel1StoreContainer">
+          <EntitySet Name="Pozajmice" EntityType="Self.Pozajmice" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BibliotekaModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Pozajmouse">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BibliotekarId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClanId" Type="Int32" Nullable="false" />
+          <Property Name="PrimjerakKnjigeId" Type="Int32" Nullable="false" />
+          <Property Name="DatumPozajmice" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DatumZakazanogVracanja" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DatumVracanja" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityContainer Name="BibliotekaEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Pozajmice" EntityType="Self.Pozajmouse" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BibliotekaModel1StoreContainer" CdmEntityContainer="BibliotekaEntities1">
+          <EntitySetMapping Name="Pozajmice">
+            <EntityTypeMapping TypeName="BibliotekaModel1.Pozajmouse">
+              <MappingFragment StoreEntitySet="Pozajmice">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="BibliotekarId" ColumnName="BibliotekarId" />
+                <ScalarProperty Name="ClanId" ColumnName="ClanId" />
+                <ScalarProperty Name="PrimjerakKnjigeId" ColumnName="PrimjerakKnjigeId" />
+                <ScalarProperty Name="DatumPozajmice" ColumnName="DatumPozajmice" />
+                <ScalarProperty Name="DatumZakazanogVracanja" ColumnName="DatumZakazanogVracanja" />
+                <ScalarProperty Name="DatumVracanja" ColumnName="DatumVracanja" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

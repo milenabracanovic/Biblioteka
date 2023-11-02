@@ -1,0 +1,139 @@
+﻿@using PagedList;
+
+@model IPagedList<Biblioteka.DTO.NajnovijaIzdanjaDTO>
+
+@{
+    ViewBag.Title = "ListaIzdanja";
+}
+
+<h2 class="navbar-text text-center">Najnovija izdanja</h2>
+
+<div class="table-responsive">
+    @Html.ActionLink("Nazad", "Index", "Home", null, new { @class = "btn btn-dark mb-2" })
+
+    <table id="izdanja" class="table table-striped table-bordered ">
+        <thead class="thead-dark">
+            <tr>
+                <th>Knjiga</th>
+                <th>Godina izdanja</th>
+                <th>Izdavačka kuća</th>
+                <th>Izdatih</th>
+                <th>Na stanju</th>
+                <th>Slika</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var izdanje in Model)
+            {
+                <tr>
+                    <td>@izdanje.Knjiga</td>
+                    <td>@izdanje.Godina</td>
+                    <td>@izdanje.IzdavackaKuca</td>
+                    <td>@izdanje.BrojIzdatih</td>
+                    <td>@izdanje.BrojNaStanju</td>
+                    <td class="align-content-center justify-content-center d-flex image-column">
+                        <img id="slika-@izdanje.IzdanjeID" src="@Url.Content("~/Slike/" + izdanje.SlikaKorica)" alt="@izdanje.SlikaKorica" class="d-sm-block " width="50" height="50" data-toggle="modal" data-target="#imageModal-@izdanje.IzdanjeID" />
+                        <!-- prikazivanje slike u punom formatu -->
+                        <div class="modal fade" id="imageModal-@izdanje.IzdanjeID" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="imageModalLabel">@izdanje.Knjiga - Slika</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Zatvori">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <img src="@Url.Content("~/Slike/" + izdanje.SlikaKorica)" alt="@izdanje.SlikaKorica" class="img-fluid" />
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="d-flex justify-content-center">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <!-- Prethodna stranica -->
+                @if (Model.HasPreviousPage)
+                {
+                    <li>@Html.ActionLink("<<", "ListaIzdanja", new { page = Model.PageNumber - 1 }, new { @class = "btn btn-dark btn-sm m-1" })</li>
+                }
+
+                <!-- Prva stranica -->
+                <li>@Html.ActionLink("1", "ListaIzdanja", new { page = 1 }, new { @class = 1 == Model.PageNumber ? "btn btn-dark btn-sm m-1" : "btn btn-secondary btn-sm m-1" })</li>
+
+                @if (Model.PageNumber > 5)
+                {
+                    <li><span class="btn btn-secondary btn-sm m-1">...</span></li>
+                }
+
+                <!-- Brojevi stranica -->
+                @for (var pageNumber = Math.Max(2, Model.PageNumber - 2); pageNumber <= Math.Min(Model.PageCount - 1, Model.PageNumber + 2); pageNumber++)
+                {
+                    <li>@Html.ActionLink(pageNumber.ToString(), "ListaIzdanja", new { page = pageNumber }, new { @class = pageNumber == Model.PageNumber ? "btn btn-dark btn-sm m-1" : "btn btn-secondary btn-sm m-1" })</li>
+                }
+
+                @if (Model.PageNumber < Model.PageCount - 4)
+                {
+                    <li><span class="btn btn-secondary btn-sm m-1">...</span></li>
+                }
+
+                <!-- Zadnja stranica -->
+                <li>@Html.ActionLink(Model.PageCount.ToString(), "ListaIzdanja", new { page = Model.PageCount }, new { @class = Model.PageCount == Model.PageNumber ? "btn btn-dark btn-sm m-1" : "btn btn-secondary btn-sm m-1" })</li>
+
+                <!-- Sledeća stranica -->
+                @if (Model.HasNextPage)
+                {
+                    <li>@Html.ActionLink(">>", "ListaIzdanja", new { page = Model.PageNumber + 1 }, new { @class = "btn btn-dark btn-sm m-1" })</li>
+                }
+            </ul>
+        </nav>
+    </div>
+
+</div>
+
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("img[id^='slika-']").click(function () {
+                var imgSrc = $(this).attr("src");
+                var modalID = "imageModal-" + $(this).attr("id").split('-')[1];
+                $("#" + modalID + " img").attr("src", imgSrc);
+                $("#" + modalID).modal('show');
+            });
+
+            $('.modal-footer .btn-secondary, .modal-header .close').click(function () {
+
+                $(this).parents('.modal').modal('hide');
+            });
+        });
+
+
+
+
+
+
+
+
+
+    </script>
+}
+<style>
+    .image-column img:hover {
+        filter: brightness(70%);
+        transition: all 0.3s ease-in;
+    }
+</style>
+
+
+

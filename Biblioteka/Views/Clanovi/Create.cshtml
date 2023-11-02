@@ -1,0 +1,61 @@
+﻿@model Biblioteka.DTO.ClanSaveDTO
+
+@{
+    ViewBag.Title = "Dodaj novog člana";
+}
+<style>
+    .custom-error-message {
+        font-size: 12px;
+    }
+</style>
+<h2 class="text-center mb-2 ">Dodaj novog člana</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-4 ">
+            @using (Html.BeginForm("Create", "Clanovi", FormMethod.Post, new { @class = " p-4 rounded" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Ime, new { @class = "font-weight-bold" })
+                    @Html.EditorFor(model => model.Ime, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Ime, "", new { @class = "text-danger custom-error-message" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Prezime, new { @class = "font-weight-bold" })
+                    @Html.EditorFor(model => model.Prezime, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Prezime, "", new { @class = "text-danger custom-error-message" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MaticniBroj, new { @class = "font-weight-bold" })
+                    @Html.EditorFor(model => model.MaticniBroj, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MaticniBroj, "", new { @class = "text-danger custom-error-message" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email, new { @class = "font-weight-bold" })
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger custom-error-message" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Adresa, new { @class = "font-weight-bold" })
+                    @Html.EditorFor(model => model.Adresa, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Adresa, "", new { @class = "text-danger custom-error-message" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DatumRodjenja, new { @class = "font-weight-bold" })
+                    @Html.EditorFor(model => model.DatumRodjenja, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DatumRodjenja, "", new { @class = "text-danger custom-error-message " })
+                </div>
+
+                @Html.ActionLink("Nazad", "Index", null, new { @class = "btn btn-secondary mt-2" })
+                <button type="submit" class="btn btn-success mt-2">Sačuvaj</button>
+            }
+        </div>
+    </div>
+</div>

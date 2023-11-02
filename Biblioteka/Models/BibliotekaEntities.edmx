@@ -1,0 +1,675 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BibliotekaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Ime" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Prezime" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Adresa" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Telefon" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ProfilnaFotografija" Type="varbinary(max)" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Autori">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ime" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Prezime" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Clanovi">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ime" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Prezime" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="MaticniBroj" Type="nvarchar" MaxLength="13" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Adresa" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="DatumRodjenja" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IzdanjaKnjiga">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KnjigeId" Type="int" Nullable="false" />
+          <Property Name="IzdavackaKucaId" Type="int" Nullable="false" />
+          <Property Name="SlikaKorica" Type="nvarchar" MaxLength="256" />
+          <Property Name="Godina" Type="int" Nullable="false" />
+          <Property Name="BrojNaStanju" Type="int" Nullable="false" />
+          <Property Name="BrojIzdatih" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IzdavackeKuce">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naziv" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kategorije">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naziv" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Knjige">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naslov" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="AutorId" Type="int" Nullable="false" />
+          <Property Name="GodinaOriginala" Type="int" Nullable="false" />
+          <Property Name="KategorijaId" Type="int" Nullable="false" />
+          <Property Name="BrojNaStanju" Type="int" Nullable="false" />
+          <Property Name="BrojIzdatih" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pozajmice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BibliotekarId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClanId" Type="int" Nullable="false" />
+          <Property Name="PrimjerakKnjigeId" Type="int" Nullable="false" />
+          <Property Name="DatumPozajmice" Type="date" Nullable="false" />
+          <Property Name="DatumZakazanogVracanja" Type="date" Nullable="false" />
+          <Property Name="DatumVracanja" Type="date" />
+        </EntityType>
+        <EntityType Name="PrimjerciKnjiga">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sifra" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IzdanjeKnjigeId" Type="int" Nullable="false" />
+          <Property Name="Zaduzen" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_IzdanjaKnjiga_IzdavackeKuce">
+          <End Role="IzdavackeKuce" Type="Self.IzdavackeKuce" Multiplicity="1" />
+          <End Role="IzdanjaKnjiga" Type="Self.IzdanjaKnjiga" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IzdavackeKuce">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IzdanjaKnjiga">
+              <PropertyRef Name="IzdavackaKucaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IzdanjaKnjiga_Knjige">
+          <End Role="Knjige" Type="Self.Knjige" Multiplicity="1" />
+          <End Role="IzdanjaKnjiga" Type="Self.IzdanjaKnjiga" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Knjige">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IzdanjaKnjiga">
+              <PropertyRef Name="KnjigeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Knjige_Autori">
+          <End Role="Autori" Type="Self.Autori" Multiplicity="1" />
+          <End Role="Knjige" Type="Self.Knjige" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Autori">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Knjige">
+              <PropertyRef Name="AutorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Knjige_Kategorije">
+          <End Role="Kategorije" Type="Self.Kategorije" Multiplicity="1" />
+          <End Role="Knjige" Type="Self.Knjige" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategorije">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Knjige">
+              <PropertyRef Name="KategorijaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pozajmice_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Pozajmice" Type="Self.Pozajmice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pozajmice">
+              <PropertyRef Name="BibliotekarId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pozajmice_Clanovi">
+          <End Role="Clanovi" Type="Self.Clanovi" Multiplicity="1" />
+          <End Role="Pozajmice" Type="Self.Pozajmice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clanovi">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pozajmice">
+              <PropertyRef Name="ClanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pozajmice_PrimjerciKnjiga">
+          <End Role="PrimjerciKnjiga" Type="Self.PrimjerciKnjiga" Multiplicity="1" />
+          <End Role="Pozajmice" Type="Self.Pozajmice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PrimjerciKnjiga">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pozajmice">
+              <PropertyRef Name="PrimjerakKnjigeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrimjerciKnjiga_IzdanjaKnjiga">
+          <End Role="IzdanjaKnjiga" Type="Self.IzdanjaKnjiga" Multiplicity="1" />
+          <End Role="PrimjerciKnjiga" Type="Self.PrimjerciKnjiga" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IzdanjaKnjiga">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PrimjerciKnjiga">
+              <PropertyRef Name="IzdanjeKnjigeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="NajnovijaIzdanjaKnjiga" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Godina" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="BibliotekaModelStoreContainer">
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Autori" EntityType="Self.Autori" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Clanovi" EntityType="Self.Clanovi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IzdanjaKnjiga" EntityType="Self.IzdanjaKnjiga" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IzdavackeKuce" EntityType="Self.IzdavackeKuce" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kategorije" EntityType="Self.Kategorije" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Knjige" EntityType="Self.Knjige" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pozajmice" EntityType="Self.Pozajmice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PrimjerciKnjiga" EntityType="Self.PrimjerciKnjiga" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_IzdanjaKnjiga_IzdavackeKuce" Association="Self.FK_IzdanjaKnjiga_IzdavackeKuce">
+            <End Role="IzdavackeKuce" EntitySet="IzdavackeKuce" />
+            <End Role="IzdanjaKnjiga" EntitySet="IzdanjaKnjiga" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IzdanjaKnjiga_Knjige" Association="Self.FK_IzdanjaKnjiga_Knjige">
+            <End Role="Knjige" EntitySet="Knjige" />
+            <End Role="IzdanjaKnjiga" EntitySet="IzdanjaKnjiga" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Knjige_Autori" Association="Self.FK_Knjige_Autori">
+            <End Role="Autori" EntitySet="Autori" />
+            <End Role="Knjige" EntitySet="Knjige" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Knjige_Kategorije" Association="Self.FK_Knjige_Kategorije">
+            <End Role="Kategorije" EntitySet="Kategorije" />
+            <End Role="Knjige" EntitySet="Knjige" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pozajmice_AspNetUsers" Association="Self.FK_Pozajmice_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Pozajmice" EntitySet="Pozajmice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pozajmice_Clanovi" Association="Self.FK_Pozajmice_Clanovi">
+            <End Role="Clanovi" EntitySet="Clanovi" />
+            <End Role="Pozajmice" EntitySet="Pozajmice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pozajmice_PrimjerciKnjiga" Association="Self.FK_Pozajmice_PrimjerciKnjiga">
+            <End Role="PrimjerciKnjiga" EntitySet="PrimjerciKnjiga" />
+            <End Role="Pozajmice" EntitySet="Pozajmice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrimjerciKnjiga_IzdanjaKnjiga" Association="Self.FK_PrimjerciKnjiga_IzdanjaKnjiga">
+            <End Role="IzdanjaKnjiga" EntitySet="IzdanjaKnjiga" />
+            <End Role="PrimjerciKnjiga" EntitySet="PrimjerciKnjiga" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BibliotekaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="BibliotekaEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="NajnovijaIzdanjaKnjiga" ReturnType="Collection(BibliotekaModel.NajnovijaIzdanjaKnjiga_Result)">
+          <Parameter Name="Godina" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="AspNetUsers" EntityType="BibliotekaModel.AspNetUsers" />
+          <EntitySet Name="Autori" EntityType="BibliotekaModel.Autori" />
+          <EntitySet Name="Clanovi" EntityType="BibliotekaModel.Clanovi" />
+          <EntitySet Name="IzdanjaKnjiga" EntityType="BibliotekaModel.IzdanjaKnjiga" />
+          <EntitySet Name="IzdavackeKuce" EntityType="BibliotekaModel.IzdavackeKuce" />
+          <EntitySet Name="Kategorije" EntityType="BibliotekaModel.Kategorije" />
+          <EntitySet Name="Knjige" EntityType="BibliotekaModel.Knjige" />
+          <EntitySet Name="Pozajmice" EntityType="BibliotekaModel.Pozajmice" />
+          <EntitySet Name="PrimjerciKnjiga" EntityType="BibliotekaModel.PrimjerciKnjiga" />
+          <AssociationSet Name="FK_Pozajmice_AspNetUsers" Association="BibliotekaModel.FK_Pozajmice_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Pozajmice" EntitySet="Pozajmice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Knjige_Autori" Association="BibliotekaModel.FK_Knjige_Autori">
+            <End Role="Autori" EntitySet="Autori" />
+            <End Role="Knjige" EntitySet="Knjige" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pozajmice_Clanovi" Association="BibliotekaModel.FK_Pozajmice_Clanovi">
+            <End Role="Clanovi" EntitySet="Clanovi" />
+            <End Role="Pozajmice" EntitySet="Pozajmice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IzdanjaKnjiga_IzdavackeKuce" Association="BibliotekaModel.FK_IzdanjaKnjiga_IzdavackeKuce">
+            <End Role="IzdavackeKuce" EntitySet="IzdavackeKuce" />
+            <End Role="IzdanjaKnjiga" EntitySet="IzdanjaKnjiga" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IzdanjaKnjiga_Knjige" Association="BibliotekaModel.FK_IzdanjaKnjiga_Knjige">
+            <End Role="Knjige" EntitySet="Knjige" />
+            <End Role="IzdanjaKnjiga" EntitySet="IzdanjaKnjiga" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrimjerciKnjiga_IzdanjaKnjiga" Association="BibliotekaModel.FK_PrimjerciKnjiga_IzdanjaKnjiga">
+            <End Role="IzdanjaKnjiga" EntitySet="IzdanjaKnjiga" />
+            <End Role="PrimjerciKnjiga" EntitySet="PrimjerciKnjiga" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Knjige_Kategorije" Association="BibliotekaModel.FK_Knjige_Kategorije">
+            <End Role="Kategorije" EntitySet="Kategorije" />
+            <End Role="Knjige" EntitySet="Knjige" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pozajmice_PrimjerciKnjiga" Association="BibliotekaModel.FK_Pozajmice_PrimjerciKnjiga">
+            <End Role="PrimjerciKnjiga" EntitySet="PrimjerciKnjiga" />
+            <End Role="Pozajmice" EntitySet="Pozajmice" />
+          </AssociationSet>
+        </EntityContainer>
+        <ComplexType Name="NajnovijaIzdanjaKnjiga_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="Godina" Nullable="false" />
+          <Property Type="String" Name="Naziv" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Naslov" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="SlikaKorica" Nullable="true" MaxLength="256" />
+          <Property Type="Int32" Name="BrojNaStanju" Nullable="false" />
+          <Property Type="Int32" Name="BrojIzdatih" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Ime" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Prezime" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Adresa" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Telefon" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProfilnaFotografija" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Pozajmice" Relationship="BibliotekaModel.FK_Pozajmice_AspNetUsers" FromRole="AspNetUsers" ToRole="Pozajmice" />
+        </EntityType>
+        <EntityType Name="Autori">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ime" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Prezime" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Knjige" Relationship="BibliotekaModel.FK_Knjige_Autori" FromRole="Autori" ToRole="Knjige" />
+        </EntityType>
+        <EntityType Name="Clanovi">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ime" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Prezime" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MaticniBroj" Type="String" Nullable="false" MaxLength="13" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Adresa" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="DatumRodjenja" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Pozajmice" Relationship="BibliotekaModel.FK_Pozajmice_Clanovi" FromRole="Clanovi" ToRole="Pozajmice" />
+        </EntityType>
+        <EntityType Name="IzdanjaKnjiga">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KnjigeId" Type="Int32" Nullable="false" />
+          <Property Name="IzdavackaKucaId" Type="Int32" Nullable="false" />
+          <Property Name="SlikaKorica" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Godina" Type="Int32" Nullable="false" />
+          <Property Name="BrojNaStanju" Type="Int32" Nullable="false" />
+          <Property Name="BrojIzdatih" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="IzdavackeKuce" Relationship="BibliotekaModel.FK_IzdanjaKnjiga_IzdavackeKuce" FromRole="IzdanjaKnjiga" ToRole="IzdavackeKuce" />
+          <NavigationProperty Name="Knjige" Relationship="BibliotekaModel.FK_IzdanjaKnjiga_Knjige" FromRole="IzdanjaKnjiga" ToRole="Knjige" />
+          <NavigationProperty Name="PrimjerciKnjiga" Relationship="BibliotekaModel.FK_PrimjerciKnjiga_IzdanjaKnjiga" FromRole="IzdanjaKnjiga" ToRole="PrimjerciKnjiga" />
+        </EntityType>
+        <EntityType Name="IzdavackeKuce">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="IzdanjaKnjiga" Relationship="BibliotekaModel.FK_IzdanjaKnjiga_IzdavackeKuce" FromRole="IzdavackeKuce" ToRole="IzdanjaKnjiga" />
+        </EntityType>
+        <EntityType Name="Kategorije">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Knjige" Relationship="BibliotekaModel.FK_Knjige_Kategorije" FromRole="Kategorije" ToRole="Knjige" />
+        </EntityType>
+        <EntityType Name="Knjige">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naslov" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="AutorId" Type="Int32" Nullable="false" />
+          <Property Name="GodinaOriginala" Type="Int32" Nullable="false" />
+          <Property Name="KategorijaId" Type="Int32" Nullable="false" />
+          <Property Name="BrojNaStanju" Type="Int32" Nullable="false" />
+          <Property Name="BrojIzdatih" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Autori" Relationship="BibliotekaModel.FK_Knjige_Autori" FromRole="Knjige" ToRole="Autori" />
+          <NavigationProperty Name="IzdanjaKnjiga" Relationship="BibliotekaModel.FK_IzdanjaKnjiga_Knjige" FromRole="Knjige" ToRole="IzdanjaKnjiga" />
+          <NavigationProperty Name="Kategorije" Relationship="BibliotekaModel.FK_Knjige_Kategorije" FromRole="Knjige" ToRole="Kategorije" />
+        </EntityType>
+        <EntityType Name="Pozajmice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BibliotekarId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ClanId" Type="Int32" Nullable="false" />
+          <Property Name="PrimjerakKnjigeId" Type="Int32" Nullable="false" />
+          <Property Name="DatumPozajmice" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DatumZakazanogVracanja" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DatumVracanja" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="AspNetUsers" Relationship="BibliotekaModel.FK_Pozajmice_AspNetUsers" FromRole="Pozajmice" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Clanovi" Relationship="BibliotekaModel.FK_Pozajmice_Clanovi" FromRole="Pozajmice" ToRole="Clanovi" />
+          <NavigationProperty Name="PrimjerciKnjiga" Relationship="BibliotekaModel.FK_Pozajmice_PrimjerciKnjiga" FromRole="Pozajmice" ToRole="PrimjerciKnjiga" />
+        </EntityType>
+        <EntityType Name="PrimjerciKnjiga">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sifra" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IzdanjeKnjigeId" Type="Int32" Nullable="false" />
+          <Property Name="Zaduzen" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="IzdanjaKnjiga" Relationship="BibliotekaModel.FK_PrimjerciKnjiga_IzdanjaKnjiga" FromRole="PrimjerciKnjiga" ToRole="IzdanjaKnjiga" />
+          <NavigationProperty Name="Pozajmice" Relationship="BibliotekaModel.FK_Pozajmice_PrimjerciKnjiga" FromRole="PrimjerciKnjiga" ToRole="Pozajmice" />
+        </EntityType>
+        <Association Name="FK_Pozajmice_AspNetUsers">
+          <End Type="BibliotekaModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="BibliotekaModel.Pozajmice" Role="Pozajmice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pozajmice">
+              <PropertyRef Name="BibliotekarId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Knjige_Autori">
+          <End Type="BibliotekaModel.Autori" Role="Autori" Multiplicity="1" />
+          <End Type="BibliotekaModel.Knjige" Role="Knjige" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Autori">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Knjige">
+              <PropertyRef Name="AutorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pozajmice_Clanovi">
+          <End Type="BibliotekaModel.Clanovi" Role="Clanovi" Multiplicity="1" />
+          <End Type="BibliotekaModel.Pozajmice" Role="Pozajmice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clanovi">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pozajmice">
+              <PropertyRef Name="ClanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IzdanjaKnjiga_IzdavackeKuce">
+          <End Type="BibliotekaModel.IzdavackeKuce" Role="IzdavackeKuce" Multiplicity="1" />
+          <End Type="BibliotekaModel.IzdanjaKnjiga" Role="IzdanjaKnjiga" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IzdavackeKuce">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IzdanjaKnjiga">
+              <PropertyRef Name="IzdavackaKucaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IzdanjaKnjiga_Knjige">
+          <End Type="BibliotekaModel.Knjige" Role="Knjige" Multiplicity="1" />
+          <End Type="BibliotekaModel.IzdanjaKnjiga" Role="IzdanjaKnjiga" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Knjige">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IzdanjaKnjiga">
+              <PropertyRef Name="KnjigeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrimjerciKnjiga_IzdanjaKnjiga">
+          <End Type="BibliotekaModel.IzdanjaKnjiga" Role="IzdanjaKnjiga" Multiplicity="1" />
+          <End Type="BibliotekaModel.PrimjerciKnjiga" Role="PrimjerciKnjiga" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IzdanjaKnjiga">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PrimjerciKnjiga">
+              <PropertyRef Name="IzdanjeKnjigeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Knjige_Kategorije">
+          <End Type="BibliotekaModel.Kategorije" Role="Kategorije" Multiplicity="1" />
+          <End Type="BibliotekaModel.Knjige" Role="Knjige" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategorije">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Knjige">
+              <PropertyRef Name="KategorijaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pozajmice_PrimjerciKnjiga">
+          <End Type="BibliotekaModel.PrimjerciKnjiga" Role="PrimjerciKnjiga" Multiplicity="1" />
+          <End Type="BibliotekaModel.Pozajmice" Role="Pozajmice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PrimjerciKnjiga">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pozajmice">
+              <PropertyRef Name="PrimjerakKnjigeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BibliotekaModelStoreContainer" CdmEntityContainer="BibliotekaEntities">
+          <FunctionImportMapping FunctionImportName="NajnovijaIzdanjaKnjiga" FunctionName="BibliotekaModel.Store.NajnovijaIzdanjaKnjiga">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BibliotekaModel.NajnovijaIzdanjaKnjiga_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Godina" ColumnName="Godina" />
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+                <ScalarProperty Name="Naslov" ColumnName="Naslov" />
+                <ScalarProperty Name="SlikaKorica" ColumnName="SlikaKorica" />
+                <ScalarProperty Name="BrojNaStanju" ColumnName="BrojNaStanju" />
+                <ScalarProperty Name="BrojIzdatih" ColumnName="BrojIzdatih" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="BibliotekaModel.AspNetUsers">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ProfilnaFotografija" ColumnName="ProfilnaFotografija" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="Adresa" ColumnName="Adresa" />
+                <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+                <ScalarProperty Name="Ime" ColumnName="Ime" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Autori">
+            <EntityTypeMapping TypeName="BibliotekaModel.Autori">
+              <MappingFragment StoreEntitySet="Autori">
+                <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+                <ScalarProperty Name="Ime" ColumnName="Ime" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clanovi">
+            <EntityTypeMapping TypeName="BibliotekaModel.Clanovi">
+              <MappingFragment StoreEntitySet="Clanovi">
+                <ScalarProperty Name="DatumRodjenja" ColumnName="DatumRodjenja" />
+                <ScalarProperty Name="Adresa" ColumnName="Adresa" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="MaticniBroj" ColumnName="MaticniBroj" />
+                <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+                <ScalarProperty Name="Ime" ColumnName="Ime" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IzdanjaKnjiga">
+            <EntityTypeMapping TypeName="BibliotekaModel.IzdanjaKnjiga">
+              <MappingFragment StoreEntitySet="IzdanjaKnjiga">
+                <ScalarProperty Name="BrojIzdatih" ColumnName="BrojIzdatih" />
+                <ScalarProperty Name="BrojNaStanju" ColumnName="BrojNaStanju" />
+                <ScalarProperty Name="Godina" ColumnName="Godina" />
+                <ScalarProperty Name="SlikaKorica" ColumnName="SlikaKorica" />
+                <ScalarProperty Name="IzdavackaKucaId" ColumnName="IzdavackaKucaId" />
+                <ScalarProperty Name="KnjigeId" ColumnName="KnjigeId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IzdavackeKuce">
+            <EntityTypeMapping TypeName="BibliotekaModel.IzdavackeKuce">
+              <MappingFragment StoreEntitySet="IzdavackeKuce">
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kategorije">
+            <EntityTypeMapping TypeName="BibliotekaModel.Kategorije">
+              <MappingFragment StoreEntitySet="Kategorije">
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Knjige">
+            <EntityTypeMapping TypeName="BibliotekaModel.Knjige">
+              <MappingFragment StoreEntitySet="Knjige">
+                <ScalarProperty Name="BrojIzdatih" ColumnName="BrojIzdatih" />
+                <ScalarProperty Name="BrojNaStanju" ColumnName="BrojNaStanju" />
+                <ScalarProperty Name="KategorijaId" ColumnName="KategorijaId" />
+                <ScalarProperty Name="GodinaOriginala" ColumnName="GodinaOriginala" />
+                <ScalarProperty Name="AutorId" ColumnName="AutorId" />
+                <ScalarProperty Name="Naslov" ColumnName="Naslov" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pozajmice">
+            <EntityTypeMapping TypeName="BibliotekaModel.Pozajmice">
+              <MappingFragment StoreEntitySet="Pozajmice">
+                <ScalarProperty Name="DatumVracanja" ColumnName="DatumVracanja" />
+                <ScalarProperty Name="DatumZakazanogVracanja" ColumnName="DatumZakazanogVracanja" />
+                <ScalarProperty Name="DatumPozajmice" ColumnName="DatumPozajmice" />
+                <ScalarProperty Name="PrimjerakKnjigeId" ColumnName="PrimjerakKnjigeId" />
+                <ScalarProperty Name="ClanId" ColumnName="ClanId" />
+                <ScalarProperty Name="BibliotekarId" ColumnName="BibliotekarId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PrimjerciKnjiga">
+            <EntityTypeMapping TypeName="BibliotekaModel.PrimjerciKnjiga">
+              <MappingFragment StoreEntitySet="PrimjerciKnjiga">
+                <ScalarProperty Name="Zaduzen" ColumnName="Zaduzen" />
+                <ScalarProperty Name="IzdanjeKnjigeId" ColumnName="IzdanjeKnjigeId" />
+                <ScalarProperty Name="Sifra" ColumnName="Sifra" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

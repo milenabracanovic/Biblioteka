@@ -1,0 +1,70 @@
+﻿@model Biblioteka.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Registruj se";
+}
+
+<main aria-labelledby="title" class="container mt-5">
+    <h2 id="title" class="text-center border-bottom p-2">@ViewBag.Title.</h2>
+
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form", enctype = "multipart/form-data", @class = "needs-validation", novalidate = "true" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="container">
+            @Html.ValidationSummary("", new { @class = "text-danger mb-3" })
+            <div class="row">
+
+                <!-- Prva kolona -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email, new { @class = "form-label" })
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Password, new { @class = "form-label" })
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "form-label" })
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Confirm Password" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Ime, new { @class = "form-label" })
+                        @Html.TextBoxFor(m => m.Ime, new { @class = "form-control", placeholder = "First Name" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Prezime, new { @class = "form-label" })
+                        @Html.TextBoxFor(m => m.Prezime, new { @class = "form-control", placeholder = "Last Name" })
+                    </div>
+                </div>
+
+                <!-- Druga kolona -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Adresa, new { @class = "form-label" })
+                        @Html.TextBoxFor(m => m.Adresa, new { @class = "form-control", placeholder = "Address" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Telefon, new { @class = "form-label" })
+                        @Html.TextBoxFor(m => m.Telefon, new { @class = "form-control", placeholder = "Phone Number" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ProfilnaFotografija, new { @class = "form-label" })
+                        <input type="file" class="form-control" name="ProfilnaFotografija" id="ProfilnaFotografija">
+                        @Html.ValidationMessageFor(model => model.ProfilnaFotografija, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-7 text-center mt-5">
+                            <button type="submit" class="btn btn-dark">Registruj se</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</main>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

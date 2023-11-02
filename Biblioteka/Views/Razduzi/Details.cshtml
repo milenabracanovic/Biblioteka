@@ -1,0 +1,66 @@
+﻿@model Biblioteka.Models.Pozajmice
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Pozajmice</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BibliotekarId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BibliotekarId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DatumPozajmice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DatumPozajmice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DatumZakazanogVracanja)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DatumZakazanogVracanja)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DatumVracanja)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DatumVracanja)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Clanovi.Ime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Clanovi.Ime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PrimjerciKnjiga.Sifra)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PrimjerciKnjiga.Sifra)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

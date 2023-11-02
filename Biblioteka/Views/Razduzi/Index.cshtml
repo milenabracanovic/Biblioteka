@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Biblioteka.Models.Pozajmice>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Razduženje</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Bibliotekar")
+        </th>
+        <th>
+            @Html.DisplayName("Član")
+        </th>
+        <th>
+            @Html.DisplayName("Šifra knjige")
+        </th>
+        <th>
+            @Html.DisplayName("Datum pozajmice")
+        </th>
+        <th>
+            @Html.DisplayName("Datum zakazanog vracanja")
+        </th>
+        <th>
+            @Html.DisplayName("Datum vracanja")
+        </th>
+
+        @*<th>
+            @Html.DisplayName("Zadužen")
+        </th>*@
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AspNetUsers.Ime)
+            @Html.DisplayFor(modelItem => item.AspNetUsers.Prezime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Clanovi.Ime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PrimjerciKnjiga.Sifra)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DatumPozajmice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DatumZakazanogVracanja)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DatumVracanja)
+        </td>
+
+        @*<td>
+            @Html.DisplayFor(modelItem => item.PrimjerciKnjiga.Zaduzen)
+        </td>*@
+        <td>
+            @Html.ActionLink("Izmijeni", "Edit", new { id = item.Id }, new { @class = "btn btn-primary", style = "width: 90px;" })
+         
+        </td>
+    </tr>
+}
+
+</table>

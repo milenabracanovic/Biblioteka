@@ -1,0 +1,136 @@
+﻿@model Biblioteka.Models.Pozajmice
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+@*<style>
+    .form-horizontal {
+        width: 30%; /* ili neka druga vrijednost, ovisno o vašim potrebama */
+        margin: 0 auto; /* ovo će centrirati div horizontalno */
+    }
+</style>*@
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h2>Kreiraj pozajmicu</h2>
+   
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+   
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ClanId, "ClanId", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("ClanId", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ClanId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    Izaberite knjigu <br />@Html.DropDownList("KnjigeId", null, "...", new { @class = "form-control" })
+    Izaberite izdavačku kuću <br />@Html.DropDownList("IzdavackaKucaId", new List<SelectListItem>(), "...", new { @class = "form-control" })
+    Izaberite šifru knjige <br />@Html.DropDownList("PrimjerakKnjigeId", new List<SelectListItem>(), "...", new { @class = "form-control" })
+  
+    Datum pozajmice
+    <div class="form-group">
+      
+        <div class="col-md-10">
+         
+
+            @Html.TextBoxFor(m => m.DatumPozajmice, "{0:dd-MM-yyyy}", new { @class = "form-control", type = "datetime-local", id = "DatumPozajmice", min = DateTime.Now.ToString("yyyy-MM-ddTHH:mm") })
+            <script>
+                function setNow() {
+                    var now = new Date();
+                    var dateString = now.toISOString().slice(0, 16);
+                    document.getElementById("DatumPozajmice").value = dateString;
+                }
+
+                setNow();
+            </script>
+        </div>
+    </div>
+    Datum zakazanog vracanja
+    <div class="form-group">
+     
+        <div class="col-md-10">
+      
+            @Html.TextBoxFor(m => m.DatumZakazanogVracanja, "{0:dd-MM-yyyy}", new { @class = "form-control", type = "datetime-local", id = "DatumZakazanogVracanja", min = DateTime.Now.ToString("yyyy-MM-ddTHH:mm") })
+
+            <script>
+              
+                function setScheduledReturnDate() {
+                    var datumPozajmice = new Date(document.getElementById("DatumPozajmice").value);
+                    if (!isNaN(datumPozajmice)) {
+                        //  datum koji je 30 dana nakon DatumPozajmice
+                        var datumZakazanogVracanja = new Date(datumPozajmice);
+                        datumZakazanogVracanja.setDate(datumZakazanogVracanja.getDate() + 30);
+
+                        var dateString = datumZakazanogVracanja.toISOString().slice(0, 16);
+
+                        document.getElementById("DatumZakazanogVracanja").value = dateString;
+                    }
+                }
+
+                // Poziv funkcije kada se stranica učita i kada se primijeni vrednost polja DatumPozajmice
+                document.getElementById("DatumPozajmice").addEventListener("change", setScheduledReturnDate);
+                setScheduledReturnDate();
+            </script>
+
+        </div>
+    </div>
+
+
+    <!--@Html.LabelFor(m => m.DatumVracanja, new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.DatumVracanja, "{0:yyyy-MM-dd HH:mm}", new { @class = "form-control", type = "datetime-local" })
+        </div>
+    </div>-->
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+      
+            <input type="submit" value="Kreiraj pozajmicu" class="btn btn-success" />       @Html.ActionLink("Odustani", "Index", null, new { @class = "btn btn-secondary" })
+
+
+        </div>
+    </div>
+
+</div>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jquery")
+    <script>
+        $(document).ready(function () {
+            $("#KnjigeId").change(function () {
+                var knjigaId = $(this).val();
+                $.getJSON('/Pozajmice/GetIzdavackeKuce', { knjigaId: knjigaId }, function (data) {
+                    var items = '<option value="">Izaberite</option>';
+                    $.each(data, function (i, izdanje) {
+                        items += "<option value='" + izdanje.Id + "'>" + izdanje.Naziv + "</option>";
+                    });
+                    $("#IzdavackaKucaId").html(items);
+                });
+            });
+
+            $("#IzdavackaKucaId").change(function () {
+                var izdanjeId = $(this).val();
+                $.getJSON('/Pozajmice/GetPrimjerciKnjiga', { izdanjeId: izdanjeId }, function (data) {
+                    var items = '<option value="">Izaberite</option>';
+                    $.each(data, function (i, primjerak) {
+                        items += "<option value='" + primjerak.Id + "'>" + primjerak.Sifra + "</option>";
+                    });
+                    $("#PrimjerakKnjigeId").html(items);
+                });
+            });
+        });
+
+    </script>
+
+}

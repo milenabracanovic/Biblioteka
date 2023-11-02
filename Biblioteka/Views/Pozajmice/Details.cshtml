@@ -1,0 +1,81 @@
+﻿@model Biblioteka.Models.Pozajmice
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Pozajmica</h2>
+
+<div>
+    
+    <hr />
+    <dl class="dl-horizontal">
+        
+        <dt>
+            @Html.DisplayName("Bibliotekar")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AspNetUsers.Ime) @Html.DisplayFor(model => model.AspNetUsers.Prezime)
+
+        </dd>
+        <dt>
+            @Html.DisplayName("Naziv knjige")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PrimjerciKnjiga.IzdanjaKnjiga.Knjige.Naslov)
+        </dd>
+        <dt>
+            @Html.DisplayName("Clan")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Clanovi.Ime) @Html.DisplayFor(model => model.Clanovi.Prezime)
+        </dd>
+        <dt>
+            @Html.DisplayName("Sifra knjige")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PrimjerciKnjiga.Sifra)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Datum pozajmice")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DatumPozajmice)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Datum zakazanog vracanja")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DatumZakazanogVracanja)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Datum vracanja")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DatumVracanja)
+        </dd>
+
+
+
+
+    </dl>
+</div>
+<p>
+
+ 
+    @if (Model.DatumVracanja == null)
+    {
+        @Html.ActionLink("Izmijeni", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" })
+    }
+
+    @Html.ActionLink("Vrati se", "Index", null, new { @class = "btn btn-secondary" })
+
+</p>

@@ -1,0 +1,137 @@
+﻿
+@model IEnumerable<Biblioteka.Models.Pozajmice>
+
+@{
+    ViewBag.Title = "Pozajmica";
+}
+
+<h2>Pozajmice</h2>
+
+<p>
+    @*@Html.ActionLink("Kreiraj pozajmicu", "Create")*@
+    @Html.ActionLink("Kreiraj pozajmicu", "Create", null, new { @class = "btn btn-success mb-2" })
+
+</p>
+<table class="table">
+    <tr>
+        <th>
+
+            @*@Html.DisplayNameFor(model => model.BibliotekarId)*@
+            @Html.DisplayName("Bibliotekar")
+        </th>
+
+        <th>
+            @Html.DisplayName("Naziv knjige")
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Clanovi.Ime)*@
+            @Html.DisplayName("Clan")
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.PrimjerciKnjiga.Sifra)*@
+            @Html.DisplayName("Šifra knjige")
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.DatumPozajmice)*@
+            @Html.DisplayName("Datum pozajmice")
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.DatumZakazanogVracanja)*@
+            @Html.DisplayName("Datum zakazanog vraćanja")
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.DatumVracanja)*@
+            @Html.DisplayName("Datum vraćanja")
+        </th>
+
+        @*<th>
+                @Html.DisplayNameFor(model => model.PrimjerciKnjiga.Zaduzen)
+
+            </th>*@
+        <th></th>
+    </tr>
+
+    @*@foreach (var item in Model)*@
+    @foreach (var item in Model.OrderByDescending(p => p.DatumPozajmice))
+    {
+        <tr>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.BibliotekarId)*@
+
+                @Html.DisplayFor(modelItem => item.AspNetUsers.Ime)
+                @Html.DisplayFor(modelItem => item.AspNetUsers.Prezime)
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrimjerciKnjiga.IzdanjaKnjiga.Knjige.Naslov)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Clanovi.Ime)  @Html.DisplayFor(modelItem => item.Clanovi.Prezime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrimjerciKnjiga.Sifra)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DatumPozajmice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DatumZakazanogVracanja)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DatumVracanja)
+            </td>
+
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.PrimjerciKnjiga.Zaduzen)
+                </td>*@
+        <td>
+            @Html.ActionLink("Prikaži", "Details", new { id = item.Id }, new { @class = "btn btn-success", style = "width: 90px;" })
+
+            @if (item.DatumVracanja == null)
+            {
+                @Html.ActionLink("Izmijeni", "Edit", new { id = item.Id }, new { @class = "btn btn-primary", style = "width: 90px;" })
+
+            }
+
+            @if (item.DatumVracanja != null)
+            {
+                @*@Html.ActionLink("Izbriši", "Delete", new { id = item.Id }, new { @class = "btn btn-danger", style = "width: 90px;" })*@
+                @Html.ActionLink("Izbriši", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+
+            }
+          
+          
+                @if (item.DatumVracanja != null)
+                {
+                    <button class="btn btn-danger" style="width: 90px;" onclick="deletePozajmica(@item.Id)">Izbriši</button>
+                }
+            
+
+            <script>
+                function deletePozajmica(id) {
+                    if (confirm("Jeste li sigurni da želite izbrisati ovu pozajmicu?")) {
+                         $.ajax({
+                           url: '@Url.Action("DeleteConfirmed", "Pozajmice")',
+                           type: 'POST',
+                           data: { id: id },
+                           success: function (result) {
+                              location.reload();
+                     },
+                       error: function (xhr, status, error) {
+                             alert("Došlo je do greške pri brisanju pozajmice.");
+                        }
+                         });
+                     }
+                }
+            </script>
+
+
+            @*@Html.ActionLink("Izmijeni", "Edit", new { id = item.Id }) |
+        @Html.ActionLink("Prikaži", "Details", new { id = item.Id }) |*@
+            @*@Html.ActionLink("Izbriši", "Delete", new { id = item.Id }) |*@
+
+        </td>
+        </tr>
+    }
+
+</table>

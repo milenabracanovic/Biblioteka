@@ -1,0 +1,116 @@
+﻿@using PagedList;
+@model IPagedList<Biblioteka.DTO.ClanGetDTO>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 class="text-center ">Članovi</h2>
+
+<div class="table-responsive">
+    <div class=" d-flex justify-content-between">
+
+        @Html.ActionLink("Nazad", "Index", "Home", null, new { @class = "btn btn-secondary mb-2" })
+        @Html.ActionLink("Dodaj novog člana", "Create", "Clanovi", null, new { @class = "btn btn-success mb-2" })
+    </div>
+    <table id="clanovi" class="table table-bordered table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    Ime i prezime
+                </th>
+
+                <th>
+                    Matični broj
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Adresa
+                </th>
+                <th>
+                    Datum rođenja
+                </th>
+                <th>
+                    Obriši člana
+                </th>
+
+            </tr>
+
+
+        </thead>
+
+        <tbody>
+            @foreach (var clan in Model)
+            {
+                <tr accesskey="@clan.ClanID">
+                    <td>
+                        @Html.ActionLink(@clan.Ime + " " + @clan.Prezime, "Edit", "Clanovi", new { id = clan.ClanID }, null)
+                    </td>
+
+
+                    <td>
+                        @clan.MaticniBroj
+                    </td>
+                    <td>
+                        @clan.Email
+                    </td>
+                    <td>
+                        @clan.Adresa
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => clan.DatumRodjenja)
+                    </td>
+                    <td class="text-center">
+                        @Html.ActionLink("Obriši", "Delete", "Clanovi", new { id = clan.ClanID }, new { @class = "btn btn-danger btn-sm" })
+
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="d-flex justify-content-center">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <!-- Prethodna stranica -->
+                @if (Model.HasPreviousPage)
+                {
+                    <li>@Html.ActionLink("<<", "Index", new { page = Model.PageNumber - 1 }, new { @class = "btn btn-dark btn-sm m-1" })</li>
+                }
+
+                <!-- Prva stranica -->
+                <li>@Html.ActionLink("1", "Index", new { page = 1 }, new { @class = 1 == Model.PageNumber ? "btn btn-dark btn-sm m-1" : "btn btn-secondary btn-sm m-1" })</li>
+
+                @if (Model.PageNumber > 5)
+                {
+                    <li><span class="btn btn-secondary btn-sm m-1">...</span></li>
+                }
+
+                <!-- Brojevi stranica -->
+                @for (var pageNumber = Math.Max(2, Model.PageNumber - 2); pageNumber <= Math.Min(Model.PageCount - 1, Model.PageNumber + 2); pageNumber++)
+                {
+                    <li>@Html.ActionLink(pageNumber.ToString(), "Index", new { page = pageNumber }, new { @class = pageNumber == Model.PageNumber ? "btn btn-dark btn-sm m-1" : "btn btn-secondary btn-sm m-1" })</li>
+                }
+
+                @if (Model.PageNumber < Model.PageCount - 4)
+                {
+                    <li><span class="btn btn-secondary btn-sm m-1">...</span></li>
+                }
+
+                <!-- Zadnja stranica -->
+                <li>@Html.ActionLink(Model.PageCount.ToString(), "Index", new { page = Model.PageCount }, new { @class = Model.PageCount == Model.PageNumber ? "btn btn-dark btn-sm m-1" : "btn btn-secondary btn-sm m-1" })</li>
+
+                <!-- Sledeća stranica -->
+                @if (Model.HasNextPage)
+                {
+                    <li>@Html.ActionLink(">>", "Index", new { page = Model.PageNumber + 1 }, new { @class = "btn btn-dark btn-sm m-1" })</li>
+                }
+            </ul>
+        </nav>
+    </div>
+
+
+</div>
+

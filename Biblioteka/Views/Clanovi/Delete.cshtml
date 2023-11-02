@@ -1,0 +1,86 @@
+﻿@model Biblioteka.DTO.ClanGetDTO
+@{
+    ViewBag.Title = "Potvrda brisanja";
+}
+
+<h2 class="text-center mb-4 border-bottom p-2">Potvrda brisanja</h2>
+
+<div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Informacije o članu...</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><strong>ID člana: </strong> @Model.ClanID</li>
+                            <li class="list-group-item"><strong>Ime: </strong> @Model.Ime</li>
+                            <li class="list-group-item"><strong>Prezime: </strong> @Model.Prezime</li>
+                            <li class="list-group-item"><strong>Adresa: </strong> @Model.Adresa</li>
+                            <li class="list-group-item"><strong>Datum rođenja: </strong> @Model.DatumRodjenja.ToString("yyyy/MM/dd")</li>
+                            <li class="list-group-item"><strong>Email: </strong> @Model.Email</li>
+                            <li class="list-group-item"><strong>Matični broj: </strong> @Model.MaticniBroj</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center">
+                @using (Html.BeginForm("Delete", "Clanovi", new { id = Model.ClanID }, FormMethod.Post, new { id = "deleteForm" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <span class="mr-2">
+                        @Html.ActionLink("Nazad", "Index", null, new { @class = "btn btn-secondary" })
+                    </span>
+
+                    <button type="button" class="btn btn-danger" onclick="openDeleteModal();">Obriši</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Potvrda brisanja člana</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Jeste li sigurni da želite obrisati ovog člana?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeDeleteModal();">Odustani</button>
+
+                <input type="submit" value="Obriši" class="btn btn-danger" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function openDeleteModal() {
+            $('#deleteModal').modal('show');
+        }
+
+        function closeDeleteModal() {
+            $('#deleteModal').modal('hide');
+        }
+
+        
+        $('#deleteModal').on('click', '.btn-danger', function () {
+            $('#deleteForm').submit();
+        });
+    </script>
+}

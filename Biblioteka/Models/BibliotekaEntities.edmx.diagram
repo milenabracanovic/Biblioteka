@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0917867a66aa4810a774c8b2fac69412" Name="Diagram1" ZoomLevel="93">
+        <EntityTypeShape EntityType="BibliotekaModel.AspNetUsers" Width="1.5" PointX="7.5" PointY="9" />
+        <EntityTypeShape EntityType="BibliotekaModel.Autori" Width="1.5" PointX="0.75" PointY="1.5" />
+        <EntityTypeShape EntityType="BibliotekaModel.Clanovi" Width="1.5" PointX="7.5" PointY="5.75" />
+        <EntityTypeShape EntityType="BibliotekaModel.IzdanjaKnjiga" Width="1.5" PointX="5.25" PointY="1" />
+        <EntityTypeShape EntityType="BibliotekaModel.IzdavackeKuce" Width="1.5" PointX="3" PointY="5.625" />
+        <EntityTypeShape EntityType="BibliotekaModel.Kategorije" Width="1.5" PointX="0.75" PointY="5.625" />
+        <EntityTypeShape EntityType="BibliotekaModel.Knjige" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="BibliotekaModel.Pozajmice" Width="1.5" PointX="9.75" PointY="1" />
+        <EntityTypeShape EntityType="BibliotekaModel.PrimjerciKnjiga" Width="1.5" PointX="7.5" PointY="1.375" />
+        <AssociationConnector Association="BibliotekaModel.FK_Pozajmice_AspNetUsers" />
+        <AssociationConnector Association="BibliotekaModel.FK_Knjige_Autori" />
+        <AssociationConnector Association="BibliotekaModel.FK_Pozajmice_Clanovi" />
+        <AssociationConnector Association="BibliotekaModel.FK_IzdanjaKnjiga_IzdavackeKuce" />
+        <AssociationConnector Association="BibliotekaModel.FK_IzdanjaKnjiga_Knjige" />
+        <AssociationConnector Association="BibliotekaModel.FK_PrimjerciKnjiga_IzdanjaKnjiga" />
+        <AssociationConnector Association="BibliotekaModel.FK_Knjige_Kategorije" />
+        <AssociationConnector Association="BibliotekaModel.FK_Pozajmice_PrimjerciKnjiga" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
