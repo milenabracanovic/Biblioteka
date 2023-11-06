@@ -25,7 +25,7 @@
         </th>
         <th>
             @*@Html.DisplayNameFor(model => model.Clanovi.Ime)*@
-            @Html.DisplayName("Clan")
+            @Html.DisplayName("Član")
         </th>
         <th>
             @*@Html.DisplayNameFor(model => model.PrimjerciKnjiga.Sifra)*@
@@ -52,86 +52,45 @@
     </tr>
 
     @*@foreach (var item in Model)*@
-    @foreach (var item in Model.OrderByDescending(p => p.DatumPozajmice))
-    {
-        <tr>
-            <td>
-                @*@Html.DisplayFor(modelItem => item.BibliotekarId)*@
+        @foreach (var item in Model.OrderByDescending(p => p.DatumPozajmice))
+        {
+            <tr>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.BibliotekarId)*@
+                    @Html.DisplayFor(modelItem => item.AspNetUsers.Ime)
+                    @Html.DisplayFor(modelItem => item.AspNetUsers.Prezime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PrimjerciKnjiga.IzdanjaKnjiga.Knjige.Naslov)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Clanovi.Ime)  @Html.DisplayFor(modelItem => item.Clanovi.Prezime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PrimjerciKnjiga.Sifra)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DatumPozajmice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DatumZakazanogVracanja)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DatumVracanja)
+                </td>
 
-                @Html.DisplayFor(modelItem => item.AspNetUsers.Ime)
-                @Html.DisplayFor(modelItem => item.AspNetUsers.Prezime)
+                <td>
+                    @Html.ActionLink("Izmijeni", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Prikaži", "Details", new { id = item.Id }, new { @class = "btn btn-success" })
+                    <br />
+                    @*@Html.ActionLink("Izbriši", "Delete", new { id = item.Id })*@
+                    @if (item.DatumVracanja == null)
+                    {
+                        @Html.ActionLink("Izbriši", "Delete", new { id = item.Id }, new { @class = "btn btn-danger", style = "width: 165px;" })
+                    }
 
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PrimjerciKnjiga.IzdanjaKnjiga.Knjige.Naslov)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Clanovi.Ime)  @Html.DisplayFor(modelItem => item.Clanovi.Prezime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PrimjerciKnjiga.Sifra)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DatumPozajmice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DatumZakazanogVracanja)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DatumVracanja)
-            </td>
-
-            @*<td>
-                    @Html.DisplayFor(modelItem => item.PrimjerciKnjiga.Zaduzen)
-                </td>*@
-        <td>
-            @Html.ActionLink("Prikaži", "Details", new { id = item.Id }, new { @class = "btn btn-success", style = "width: 90px;" })
-
-            @if (item.DatumVracanja == null)
-            {
-                @Html.ActionLink("Izmijeni", "Edit", new { id = item.Id }, new { @class = "btn btn-primary", style = "width: 90px;" })
-
-            }
-
-            @if (item.DatumVracanja != null)
-            {
-                @*@Html.ActionLink("Izbriši", "Delete", new { id = item.Id }, new { @class = "btn btn-danger", style = "width: 90px;" })*@
-                @Html.ActionLink("Izbriši", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
-
-            }
-          
-          
-                @if (item.DatumVracanja != null)
-                {
-                    <button class="btn btn-danger" style="width: 90px;" onclick="deletePozajmica(@item.Id)">Izbriši</button>
-                }
-            
-
-            <script>
-                function deletePozajmica(id) {
-                    if (confirm("Jeste li sigurni da želite izbrisati ovu pozajmicu?")) {
-                         $.ajax({
-                           url: '@Url.Action("DeleteConfirmed", "Pozajmice")',
-                           type: 'POST',
-                           data: { id: id },
-                           success: function (result) {
-                              location.reload();
-                     },
-                       error: function (xhr, status, error) {
-                             alert("Došlo je do greške pri brisanju pozajmice.");
-                        }
-                         });
-                     }
-                }
-            </script>
-
-
-            @*@Html.ActionLink("Izmijeni", "Edit", new { id = item.Id }) |
-        @Html.ActionLink("Prikaži", "Details", new { id = item.Id }) |*@
-            @*@Html.ActionLink("Izbriši", "Delete", new { id = item.Id }) |*@
-
-        </td>
-        </tr>
-    }
+                </td>
+          </tr>
+}
 
 </table>

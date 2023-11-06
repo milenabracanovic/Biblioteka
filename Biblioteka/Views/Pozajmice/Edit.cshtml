@@ -4,7 +4,7 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Izmjena pozadmice</h2>
+<h2>Izmjena pozajmice</h2>
 
 
 @using (Html.BeginForm())
@@ -18,13 +18,14 @@
         @Html.HiddenFor(model => model.Id)
 
     <div class="form-group">
-        @Html.DisplayName("Bibliotekar")
-        <dd>
-            @Html.DisplayFor(model => model.AspNetUsers.Ime) @Html.DisplayFor(model => model.AspNetUsers.Prezime)
-        </dd>
-     
-    </div>
+        @*@Html.DisplayName("Bibliotekar")*@
+        @Html.HiddenFor(model => model.BibliotekarId)
 
+        @*<dd>
+            @Html.DisplayFor(model => model.AspNetUsers.Ime) @Html.DisplayFor(model => model.AspNetUsers.Prezime)
+        </dd>*@
+
+    </div>
 
     <div class="form-group">
         @Html.DisplayName("Clan")

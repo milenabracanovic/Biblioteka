@@ -39,17 +39,28 @@
     <div class="form-group">
       
         <div class="col-md-10">
-         
 
+            @*<input type="datetime-local" id="DatumPozajmice">*@
             @Html.TextBoxFor(m => m.DatumPozajmice, "{0:dd-MM-yyyy}", new { @class = "form-control", type = "datetime-local", id = "DatumPozajmice", min = DateTime.Now.ToString("yyyy-MM-ddTHH:mm") })
+            @*<script>
+            function setNow() {
+                var now = new Date();
+                var dateString = now.toISOString().slice(0, 16);
+                document.getElementById("DatumPozajmice").value = dateString;
+            }
+
+            setNow();
+        </script>*@
+
             <script>
-                function setNow() {
-                    var now = new Date();
-                    var dateString = now.toISOString().slice(0, 16);
-                    document.getElementById("DatumPozajmice").value = dateString;
+                function setNowPlusOneHour() {
+                    var now = new Date(); // Trenutno vrijeme
+                    now.setHours(now.getHours() + 1); // Dodavanje 1 sata na trenutno vrijeme
+                    var dateString = now.toISOString().slice(0, 16); // Konverzija u string i obrezivanje na potreban format
+                    document.getElementById("DatumPozajmice").value = dateString; // Postavljanje vrijednosti
                 }
 
-                setNow();
+                setNowPlusOneHour();
             </script>
         </div>
     </div>

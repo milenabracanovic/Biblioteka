@@ -146,36 +146,36 @@ namespace Biblioteka.Controllers
             ViewBag.PrimjerakKnjigeId = new SelectList(db.PrimjerciKnjiga, "Id", "Sifra", pozajmice.PrimjerakKnjigeId);
             return View(pozajmice);
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
 
 
 
-        // GET: Pozajmice/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Pozajmice pozajmice = db.Pozajmice.Find(id);
-            if (pozajmice == null)
-            {
-                return HttpNotFound();
-            }
-            return View(pozajmice);
-        }
 
-        // POST: Pozajmice/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Pozajmice pozajmice = db.Pozajmice.Find(id);
-            db.Pozajmice.Remove(pozajmice);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+
+		// GET: Pozajmice/Delete/5
+		public ActionResult Delete(int? id)
+		{
+			if (id == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
+			Pozajmice pozajmice = db.Pozajmice.Find(id);
+			if (pozajmice == null)
+			{
+				return HttpNotFound();
+			}
+			return View(pozajmice);
+		}
+
+		// POST: Pozajmice/Delete/5
+		[HttpPost, ActionName("Delete")]
+		[ValidateAntiForgeryToken]
+		public ActionResult DeleteConfirmed(int id)
+		{
+			Pozajmice pozajmice = db.Pozajmice.Find(id);
+			db.Pozajmice.Remove(pozajmice);
+			db.SaveChanges();
+			return RedirectToAction("Index");
+		}
 
 		protected override void Dispose(bool disposing)
 		{
